@@ -1,51 +1,51 @@
 class Player
 
-	attr_accessor :name, :symb
+	attr_accessor :name, :symb     #allow the class var name and symb to be read and modified without needing a method
 
-	def initialize(player_id, symb)
-		puts "#{player_id}, Enter your name : "
-		@name = gets.chomp
-		@symb = symb 
+	def initialize(player_id, symb)   #called on Player.new
+		puts "#{player_id}, Enter your name : "  #ask the player in creation to set its nickname
+		@name = gets.chomp												#user nick
+		@symb = symb 					#x or o depending on arg
 	end
 end
 
-class Case
+class Case  #case object
+     
+	attr_accessor :status  #access the status of the case called
 
-	attr_accessor :id 
-	attr_accessor :status
+	def initialize(val)
 
-	def initialize(id, val)
-		@id = id
-		@status = val
+		@status = val   #defaultly set on " " via board class
+
 	end
 
 end
 
 
-class Board
+class Board   #set and print the board
 
-	def initialize
+	def initialize   #generate all the cases in global variables
 
 
-		$c1 = Case.new(1, " ")
-		$c2 = Case.new(2, " ")
-		$c3 = Case.new(3, " ")
-		$c4 = Case.new(4, " ")
-		$c5 = Case.new(5, " ")
-		$c6 = Case.new(6, " ")
-		$c7 = Case.new(7, " ")
-		$c8 = Case.new(8, " ")
-		$c9 = Case.new(9, " ")
+		$c1 = Case.new(" ")
+		$c2 = Case.new(" ")
+		$c3 = Case.new(" ")
+		$c4 = Case.new(" ")
+		$c5 = Case.new(" ")
+		$c6 = Case.new(" ")
+		$c7 = Case.new(" ")
+		$c8 = Case.new(" ")
+		$c9 = Case.new(" ")
 
 	end
 
-	def display_board
+	def display_board  #print the grid via a string .... a bit dirty but functional
 
-
+     # \n means go to newline ... and a \ is needed before every special character (such as \-|/....)
 
 		tab = " #{$c1.status} \| #{$c2.status} \| #{$c3.status} \n\-\-\-\|\-\-\-\|\-\-\- \n #{$c4.status} \| #{$c5.status} \| #{$c6.status} \n\-\-\-\|\-\-\-\|\-\-\- \n #{$c7.status} \| #{$c8.status} \| #{$c9.status} "
 
-		puts tab
+		puts tab #prints the tab 
 
 	end
 end
@@ -53,51 +53,54 @@ end
 
 class Game
 
-	def initialize
-		@turn = 0
-		@choice_left = ["1","2","3","4","5","6","7","8","9"]
+	def initialize    #launches when Game.new is called
+		@turn = 0    #turn counter
+		@choice_left = ["1","2","3","4","5","6","7","8","9"] # list the none used cases in case a player pick a used one
 	end
 
-	def game_start
+	def game_start  #where it begins
 		@players = []
-		@players[0] = Player.new("Player1", "X")
-		@players[1] = Player.new("Player2", "O")
+		@players[0] = Player.new("Player1", "X") # create player 1 on the players tab[0]
+		@players[1] = Player.new("Player2", "O") #create player 2 on the players tab [1]
 
-		@board = Board.new
-		@board.display_board
-		while true
-			play_turn
-			if win_combination_check == true
-				puts "winner winner chicken dinner"
-				break
+		@board = Board.new  #generate the board
+		@board.display_board #display it
+		
+		while true #infinite loop
 
-			elsif @turn == 8
+			play_turn #method in wich the player make it's choice
+
+			if win_combination_check == true   #checks in the methode is someone has won yet
+				puts "winner winner chicken dinner" #display victory message :D
+				break #end the programm
+
+			elsif @turn == 8  #if the turn counter reach 8 there is no possibility left 
 				puts "That's a DRAW"
-				break
+				break #ends programm
 			end
-			@turn += 1
+			@turn += 1 #iterate turn counter
 		end
 
 	end
 
-	def play_turn
+	def play_turn #player's action's method
 
-		@current_player = @players[@turn%2].name
+		@current_player = @players[@turn%2].name  #ok so this means : if the turn is pair its player 1 else its player 2  and take its name
 		puts "#{@current_player}'s turn, pick a case :"
 		@player_choice = ""
 
 		while true
-			@player_choice = gets.chomp
+			@player_choice = gets.chomp #player gives a number between 1..9
 
-			unless @choice_left.include?(@player_choice)
+			unless @choice_left.include?(@player_choice) #if the player numb is not on the list of available cases it puts a message and displays the available cases
 				puts "mhmh nah bad idea! Pick a number not taken between 1 and 9 \n choices left : #{@choice_left}"
 			else
-				@choice_left.delete(@player_choice)
-				break
+				@choice_left.delete(@player_choice) #remove the number user inputed from the list of available cases
+				break #ends the loop
 			end
 		end
 
-			case @player_choice
+			case @player_choice #depending on what the user inputed and passed the checking it will modify the corresponding case
 				when "1"
 					$c1.status = @players[@turn%2].symb
 				when "2"
@@ -118,39 +121,39 @@ class Game
 					$c9.status = @players[@turn%2].symb
 			end
 
-			@board.display_board
+			@board.display_board #displays the board updated  then go back to the game loop
 			
 
 	end
 
 
-	def win_combination_check
+	def win_combination_check #checks if  there is a winner
 
+		#puts all the cases values in a tab
 		@tab = [[$c1.status,$c2.status,$c3.status],[$c4.status,$c5.status,$c6.status],[$c7.status,$c8.status,$c9.status]]
 
+
+		#check all the lines and else all the column
    (0..2).each do |i|
       if @tab[i][0] == @tab[i][1] && @tab[i][1] == @tab[i][2]
-        return true unless @tab[i][0] == " "
+        return true unless @tab[i][0] == " " #return true unless one of the  first value of any line is = to blank
 
       elsif @tab[0][i] ==@tab[1][i] && @tab[1][i] == @tab[2][i]
-        return true unless @tab[0][i] == " "
+        return true unless @tab[0][i] == " "#same here for column
       end
     end
 
      if ( @tab[0][0] == @tab[1][1] && @tab[1][1] == @tab[2][2] ) ||
        ( @tab[0][2] == @tab[1][1] && @tab[1][1] == @tab[2][0] )
-      return true unless @tab[1][1] == " "
+      return true unless @tab[1][1] == " " #returns true unless the 5th case (middle) is == to blank
     else
-    	return false
+    	return false #no winning combination found so return false
     end
 			
 
 	end
 
-
-
-
 end
 
-game = Game.new
-game.game_start
+game = Game.new #create a new game
+game.game_start #calls the start method that launch the game
