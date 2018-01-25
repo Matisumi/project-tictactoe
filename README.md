@@ -26,6 +26,6 @@ Repo for THP's tictactoe ex
 
 
 
-you can contact me on slack @mati or fabienmallet, I always have time to check with you where the problem can be :-)
+you can contact me on slack @mati or @fabienmallet, I always have time to check with you where the problem can be :-)
 =======
-Pair learning Sabine et Fabien 
+
