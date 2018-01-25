@@ -10,7 +10,7 @@ class Player
 end
 
 class Case  #case object
-     
+	
 	attr_accessor :status  #access the status of the case called
 
 	def initialize(val)
@@ -43,7 +43,7 @@ class Board   #set and print the board
 
      # \n means go to newline ... and a \ is needed before every special character (such as \-|/....)
 
-		tab = " #{$c1.status} \| #{$c2.status} \| #{$c3.status} \n\-\-\-\|\-\-\-\|\-\-\- \n #{$c4.status} \| #{$c5.status} \| #{$c6.status} \n\-\-\-\|\-\-\-\|\-\-\- \n #{$c7.status} \| #{$c8.status} \| #{$c9.status} "
+     tab = " #{$c1.status} \| #{$c2.status} \| #{$c3.status} \n\-\-\-\|\-\-\-\|\-\-\- \n #{$c4.status} \| #{$c5.status} \| #{$c6.status} \n\-\-\-\|\-\-\-\|\-\-\- \n #{$c7.status} \| #{$c8.status} \| #{$c9.status} "
 
 		puts tab #prints the tab 
 
@@ -101,30 +101,30 @@ class Game
 		end
 
 			case @player_choice #depending on what the user inputed and passed the checking it will modify the corresponding case
-				when "1"
-					$c1.status = @players[@turn%2].symb
-				when "2"
-					$c2.status = @players[@turn%2].symb
-				when "3"
-					$c3.status = @players[@turn%2].symb
-				when "4"
-					$c4.status = @players[@turn%2].symb
-				when "5"
-					$c5.status = @players[@turn%2].symb
-				when "6"
-					$c6.status = @players[@turn%2].symb
-				when "7"
-					$c7.status = @players[@turn%2].symb
-				when "8"
-					$c8.status = @players[@turn%2].symb
-				when "9"
-					$c9.status = @players[@turn%2].symb
+			when "1"
+				$c1.status = @players[@turn%2].symb
+			when "2"
+				$c2.status = @players[@turn%2].symb
+			when "3"
+				$c3.status = @players[@turn%2].symb
+			when "4"
+				$c4.status = @players[@turn%2].symb
+			when "5"
+				$c5.status = @players[@turn%2].symb
+			when "6"
+				$c6.status = @players[@turn%2].symb
+			when "7"
+				$c7.status = @players[@turn%2].symb
+			when "8"
+				$c8.status = @players[@turn%2].symb
+			when "9"
+				$c9.status = @players[@turn%2].symb
 			end
 
 			@board.display_board #displays the board updated  then go back to the game loop
 			
 
-	end
+		end
 
 
 	def win_combination_check #checks if  there is a winner
@@ -134,24 +134,24 @@ class Game
 
 
 		#check all the lines and else all the column
-   (0..2).each do |i|
-      if @tab[i][0] == @tab[i][1] && @tab[i][1] == @tab[i][2]
+		(0..2).each do |i|
+			if @tab[i][0] == @tab[i][1] && @tab[i][1] == @tab[i][2]
         return true unless @tab[i][0] == " " #return true unless one of the  first value of any line is = to blank
 
-      elsif @tab[0][i] ==@tab[1][i] && @tab[1][i] == @tab[2][i]
+    elsif @tab[0][i] ==@tab[1][i] && @tab[1][i] == @tab[2][i]
         return true unless @tab[0][i] == " "#same here for column
-      end
     end
+end
 
-     if ( @tab[0][0] == @tab[1][1] && @tab[1][1] == @tab[2][2] ) ||
-       ( @tab[0][2] == @tab[1][1] && @tab[1][1] == @tab[2][0] )
+if ( @tab[0][0] == @tab[1][1] && @tab[1][1] == @tab[2][2] ) ||
+	( @tab[0][2] == @tab[1][1] && @tab[1][1] == @tab[2][0] )
       return true unless @tab[1][1] == " " #returns true unless the 5th case (middle) is == to blank
-    else
+  else
     	return false #no winning combination found so return false
     end
-			
+    
 
-	end
+end
 
 end
 
