@@ -92,15 +92,28 @@ class Game
 
 			if win_combination_check == true   #checks in the methode is someone has won yet
 				puts "\nAnd #{@players[@turn%2].name} WINS !!!!!" #display victory message :D
-				break #end the programm
+				restart() #askes you if you want to restart
+				break#end the programm
 
 			elsif @turn == 8  #if the turn counter reach 8 there is no possibility left 
 				puts "\nThat's a DRAW"
-				break #ends programm
+				restart()#askes you if you want to restart
+				break#ends programm
 			end
 			@turn += 1 #iterate turn counter
 		end
 
+	end
+
+	def restart # askes the player if he wanna play again
+
+		puts "Wanna play again ? y / n "
+		@play = ""
+		@play = gets.chomp
+
+		if @play == "y" then  run()
+		else return 0
+		end
 	end
 
 	def play_turn #player's action's method
@@ -175,5 +188,12 @@ end
 
 end
 
-game = Game.new #create a new game
-game.game_start #calls the start method that launch the game
+
+def run
+
+	game = Game.new #create a new game
+	game.game_start #calls the start method that launch the game
+
+end
+
+run
