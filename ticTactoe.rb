@@ -22,7 +22,7 @@ end
 
 class Board
 
-	def initialize()
+	def initialize
 
 
 		@c1 = Case.new(1, " ")
@@ -51,3 +51,29 @@ end
 bob = Board.new
 bob.display_board
 
+
+class Game
+
+	def initialize
+		@turn = 0
+		@choice_left = ["1","2","3","4","5","6","7","8","9"]
+	end
+
+	def game_start
+		@players[0] = Player.new(player1, X)
+		@players[1] = Player.new(player2, O)
+
+		@board = Board.new
+		@board.display_board
+
+	end
+
+
+
+
+
+
+
+
+
+end
