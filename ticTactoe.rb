@@ -3,7 +3,7 @@ class Player
 	attr_accessor :name, :symb     #allow the class var name and symb to be read and modified without needing a method
 
 	def initialize(player_id, symb)   #called on Player.new
-		puts "#{player_id}, Enter your name : "  #ask the player in creation to set its nickname
+		puts "\n#{player_id}, Enter your name : "  #ask the player in creation to set its nickname
 		@name = gets.chomp												#user nick
 		@symb = symb 					#x or o depending on arg
 	end
@@ -71,11 +71,11 @@ class Game
 			play_turn #method in wich the player make it's choice
 
 			if win_combination_check == true   #checks in the methode is someone has won yet
-				puts "winner winner chicken dinner" #display victory message :D
+				puts "\nwinner winner chicken dinner" #display victory message :D
 				break #end the programm
 
 			elsif @turn == 8  #if the turn counter reach 8 there is no possibility left 
-				puts "That's a DRAW"
+				puts "\nThat's a DRAW"
 				break #ends programm
 			end
 			@turn += 1 #iterate turn counter
@@ -86,14 +86,14 @@ class Game
 	def play_turn #player's action's method
 
 		@current_player = @players[@turn%2].name  #ok so this means : if the turn is pair its player 1 else its player 2  and take its name
-		puts "#{@current_player}'s turn, pick a case :"
+		puts "\n#{@current_player}'s turn, pick a case :"
 		@player_choice = ""
 
 		while true
 			@player_choice = gets.chomp #player gives a number between 1..9
 
 			unless @choice_left.include?(@player_choice) #if the player numb is not on the list of available cases it puts a message and displays the available cases
-				puts "mhmh nah bad idea! Pick a number not taken between 1 and 9 \n choices left : #{@choice_left}"
+				puts "\nmhmh nah bad idea! Pick a number not taken between 1 and 9 \n choices left : #{@choice_left}"
 			else
 				@choice_left.delete(@player_choice) #remove the number user inputed from the list of available cases
 				break #ends the loop
