@@ -102,7 +102,6 @@ class Game
 			end
 			@turn += 1 #iterate turn counter
 		end
-
 	end
 
 	def restart # askes the player if he wanna play again
@@ -155,9 +154,7 @@ class Game
 			end
 
 			@board.display_board #displays the board updated  then go back to the game loop
-			
-
-		end
+	end
 
 
 	def win_combination_check #checks if  there is a winner
@@ -181,9 +178,7 @@ class Game
   	else
     	return false #no winning combination found so return false
     end
-    
-
-end
+	end
 
 end
 
@@ -192,7 +187,6 @@ def run
 
 	game = Game.new #create a new game
 	game.game_start #calls the start method that launch the game
-
 end
 
 run
