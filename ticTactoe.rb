@@ -79,8 +79,8 @@ class Game
 		@players[1] = Player.new("Player2", "O") #create player 2 on the players tab [1]
 
 		puts"\n---------------------------"
-		puts "\nWelcome to our TicTacToe !"
-		puts "Player 1 : #{@players[0].name} ------ Player 2 : #{@players[1].name}" 
+		puts "\nWelcome to our TicTacToe !" # welcoming message
+		puts "Player 1 as X: #{@players[0].name} ------ Player 2 as O : #{@players[1].name}" 
 
 		@board = Board.new  #generate the board
 		@board.display_tuto #display it
