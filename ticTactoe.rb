@@ -48,6 +48,19 @@ class Board   #set and print the board
 		puts tab #prints the tab 
 
 	end
+
+	def display_tuto
+
+		tab = " 1 \| 2 \| 3 \n\-\-\-\|\-\-\-\|\-\-\- \n 4 \| 5 \| 6 \n\-\-\-\|\-\-\-\|\-\-\- \n 7 \| 8 \| 9 "
+
+
+		puts "\nHOW TO PLAY :\nChoose the cell you want to select by typing its number :"
+		puts tab #prints the tutorial tab
+		puts "----------------------------\n"
+		sleep(2) #sleeps 2sec so you can read the quick tutorial
+
+	end
+
 end
 
 
@@ -59,19 +72,26 @@ class Game
 	end
 
 	def game_start  #where it begins
+
+		puts "Initializing ..."
 		@players = []
 		@players[0] = Player.new("Player1", "X") # create player 1 on the players tab[0]
 		@players[1] = Player.new("Player2", "O") #create player 2 on the players tab [1]
 
+		puts"\n---------------------------"
+		puts "\nWelcome to our TicTacToe !"
+		puts "Player 1 : #{@players[0].name} ------ Player 2 : #{@players[1].name}" 
+
 		@board = Board.new  #generate the board
-		@board.display_board #display it
+		@board.display_tuto #display it
+
 		
 		while true #infinite loop
 
 			play_turn #method in wich the player make it's choice
 
 			if win_combination_check == true   #checks in the methode is someone has won yet
-				puts "\nwinner winner chicken dinner" #display victory message :D
+				puts "\nAnd #{@players[@turn%2].name} WINS !!!!!" #display victory message :D
 				break #end the programm
 
 			elsif @turn == 8  #if the turn counter reach 8 there is no possibility left 
